@@ -1,0 +1,123 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/posts":
+    get:
+      summary: Retrieves a list of posts
+      operationId: ListPosts
+      tags:
+      - Post
+      responses:
+        '200':
+          description: posts found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ListPostResponse"
+  "/api/v1/posts/{id}":
+    get:
+      summary: Retrieves a post
+      operationId: GetPost
+      tags:
+      - Post
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: post found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GetPostResponse"
+  "/api/v1/users/{id}":
+    get:
+      summary: Retrieves a user
+      operationId: GetUser
+      tags:
+      - User
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GetUserResponse"
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:4000
+components:
+  schemas:
+    UserContent:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        attributes:
+          "$ref": "#/components/schemas/UserContent"
+    GetUserResponse:
+      type: object
+      properties:
+        data:
+          "$ref": "#/components/schemas/User"
+    PostContent:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: integer
+        created:
+          type: string
+        updated:
+          type: string
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        attributes:
+          "$ref": "#/components/schemas/PostContent"
+    GetPostResponse:
+      type: object
+      properties:
+        data:
+          "$ref": "#/components/schemas/Post"
+    ListPosts:
+      type: array
+      items:
+        "$ref": "#/components/schemas/Post"
+    ListPostResponse:
+      type: object
+      properties:
+        data:
+          "$ref": "#/components/schemas/ListPosts"
