@@ -39,7 +39,7 @@ export type Post = {
 //     return posts
 // }
 
-export const getAllPosts = async () => {
-  const { data } = await postApi.listPosts()
-  return data.data
-}
+// export const getAllPosts = async () => {
+//   const { data } = await postApi.listPosts()
+//   return data.data
+// }
